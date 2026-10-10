@@ -1,1 +1,1 @@
-# 🚀 NextCollege Josue Seijas laboratorio
+# 🚀 NextCollege Josue Seijas labora
