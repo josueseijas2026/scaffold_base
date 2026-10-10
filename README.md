@@ -1,1 +1,1 @@
-# 🚀 NextCollege
+# 🚀 NextCollege Josue Seijas
