@@ -1,6 +1,7 @@
 ---
 // apps/ecommerce/src/pages/index.astro
-const title = "Bienvenidos a NextCollege";
+import { BURGERS, HIGHLIGHT_STATS, TESTIMONIALS } from '../data/burgers.js';
+const title = "Hamburger Rapid | Sabor Gourmet a Velocidad Relámpago";
 ---
 
 <!DOCTYPE html>
@@ -9,126 +10,1511 @@ const title = "Bienvenidos a NextCollege";
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
+  <meta name="description" content="Hamburger Rapid: La primera versión comercial de hamburguesas gourmet artesanales preparadas a la leña con carne 100% Angus y entrega relámpago." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #090d16;
-      --card: #131b2e;
-      --border: #1e293b;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --primary: #2563eb;
+      --bg-canvas: #FAF8F5;
+      --bg-white: #FFFFFF;
+      --bg-warm: #FFFDF9;
+      --surface-border: #F1E8DF;
+      --surface-hover: #EAE0D5;
+      --primary: #D97706;
+      --primary-dark: #B45309;
+      --primary-light: #FEF3C7;
+      --flame: #DC2626;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --text-sub: #475569;
+      --shadow-sm: 0 4px 12px rgba(217, 119, 6, 0.05);
+      --shadow-card: 0 10px 25px -5px rgba(217, 119, 6, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+      --shadow-hover: 0 20px 35px -8px rgba(217, 119, 6, 0.18), 0 12px 18px -8px rgba(0, 0, 0, 0.05);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-pill: 9999px;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      text-align: center;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(37, 99, 235, 0.1);
-      border: 1px solid rgba(37, 99, 235, 0.3);
-      color: #38bdf8;
-      padding: 0.4rem 1rem;
-      border-radius: 9999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-    }
-    h1 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 1.25rem;
-      background: linear-gradient(135deg, #ffffff 40%, #94a3b8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    p {
-      color: var(--text-muted);
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin-bottom: 2.5rem;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
-    .nav-cards {
+
+    /* Top Promo Bar */
+    .promo-bar {
+      background: linear-gradient(90deg, #B45309 0%, #D97706 50%, #F59E0B 100%);
+      color: #FFFFFF;
+      text-align: center;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
       display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
       justify-content: center;
-      max-width: 700px;
+      align-items: center;
+      gap: 0.75rem;
     }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 1.25rem 1.75rem;
-      border-radius: 1rem;
-      text-decoration: none;
-      color: var(--text);
+    .promo-badge {
+      background: rgba(255, 255, 255, 0.25);
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Header & Navigation */
+    header.main-header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--surface-border);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+    }
+    .header-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-logo {
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      border: 1px solid #FCD34D;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .brand-text h1 {
+      font-size: 1.35rem;
+      font-weight: 900;
+      line-height: 1.1;
+      color: #92400E;
+      letter-spacing: -0.02em;
+    }
+    .brand-text span {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #B45309;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-sub);
       font-size: 0.95rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .btn-pwa {
+      background: #D97706;
+      color: #FFFFFF;
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
+      transition: all 0.25s ease;
+    }
+    .btn-pwa:hover {
+      background: #B45309;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(217, 119, 6, 0.4);
+    }
+    .btn-admin {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      color: #475569;
+      padding: 0.65rem 1.1rem;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
       transition: all 0.2s;
     }
-    .card:hover {
-      transform: translateY(-3px);
-      border-color: var(--primary);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    .btn-admin:hover {
+      background: #EDF2F7;
+      color: var(--text-main);
+      border-color: #CBD5E1;
     }
-    footer {
-      margin-top: 4rem;
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      overflow: hidden;
+      padding: 4.5rem 1.5rem 3.5rem;
+      background: radial-gradient(ellipse at top, #FFFBEB 0%, #FAF8F5 70%);
+      border-bottom: 1px solid var(--surface-border);
+    }
+    .hero-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--primary-light);
+      border: 1px solid #FDE68A;
+      color: #92400E;
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.25rem;
+    }
+    .hero-title {
+      font-size: 3.6rem;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--text-main);
+      margin-bottom: 1.25rem;
+    }
+    .hero-title span.highlight {
+      background: linear-gradient(135deg, #B45309 20%, #D97706 70%, #F59E0B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-description {
+      font-size: 1.18rem;
+      color: var(--text-sub);
+      line-height: 1.65;
+      margin-bottom: 2.25rem;
+      max-width: 620px;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 1.15rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .cta-primary {
+      background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+      color: #FFFFFF;
+      padding: 0.95rem 1.85rem;
+      border-radius: var(--radius-pill);
+      font-size: 1.05rem;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 10px 25px -4px rgba(217, 119, 6, 0.45);
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .cta-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 30px -4px rgba(217, 119, 6, 0.55);
+    }
+    .cta-secondary {
+      background: #FFFFFF;
+      color: #92400E;
+      border: 1.5px solid #FCD34D;
+      padding: 0.9rem 1.65rem;
+      border-radius: var(--radius-pill);
+      font-size: 1.02rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .cta-secondary:hover {
+      background: #FFFBEB;
+      border-color: #F59E0B;
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      border-top: 1px solid var(--surface-border);
+      padding-top: 1.75rem;
+    }
+    .stat-item {
+      text-align: left;
+    }
+    .stat-number {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #92400E;
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .hero-media {
+      position: relative;
+    }
+    .hero-card-featured {
+      background: #FFFFFF;
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-hover);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card-featured img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      transition: transform 0.4s ease;
+    }
+    .hero-card-featured:hover img {
+      transform: scale(1.03);
+    }
+    .hero-floating-badge {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #92400E;
+      border: 1px solid #FCD34D;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .hero-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.25rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed var(--surface-border);
+    }
+    .hero-card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .hero-card-price {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #D97706;
+    }
+
+    /* Pillars / Value proposition */
+    .pillars-section {
+      max-width: 1240px;
+      margin: -2rem auto 4rem;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 20;
+    }
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .pillar-card {
+      background: #FFFFFF;
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .pillar-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .pillar-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: #FEF3C7;
+      color: #92400E;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      margin-bottom: 1.15rem;
+    }
+    .pillar-card h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+    .pillar-card p {
+      font-size: 0.92rem;
+      color: var(--text-sub);
+      line-height: 1.55;
+    }
+
+    /* Catalog Section */
+    .catalog-section {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .section-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 3rem;
+    }
+    .section-pill {
+      display: inline-block;
+      background: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #FDE68A;
+      padding: 0.35rem 0.95rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: 2.6rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 0.85rem;
+    }
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    /* Category Filter Tabs */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.75rem;
+    }
+    .tab-btn {
+      background: #FFFFFF;
+      border: 1px solid var(--surface-border);
+      color: var(--text-sub);
+      padding: 0.65rem 1.35rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover {
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+    .tab-btn.active {
+      background: #92400E;
+      color: #FFFFFF;
+      border-color: #92400E;
+      box-shadow: 0 4px 12px rgba(146, 64, 14, 0.25);
+    }
+
+    /* Burgers Grid */
+    .burgers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Individual Burger Card */
+    .burger-card {
+      background: var(--bg-white);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-card);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .burger-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: #FCD34D;
+    }
+
+    .card-image-wrap {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+      background: #F8FAFC;
+    }
+    .card-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .burger-card:hover .card-image-wrap img {
+      transform: scale(1.06);
+    }
+
+    .badge-specialty {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      z-index: 2;
+    }
+    .card-prep-tag {
+      position: absolute;
+      bottom: 0.75rem;
+      right: 0.75rem;
+      background: rgba(15, 23, 42, 0.8);
+      color: #FFFFFF;
+      backdrop-filter: blur(6px);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .card-category {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: #B45309;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .card-rating {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #D97706;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.65rem;
+      line-height: 1.3;
+    }
+    .card-specialty-subtitle {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #92400E;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+    .card-desc {
+      font-size: 0.92rem;
+      color: var(--text-sub);
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+    .card-tag-pill {
+      background: #F3F4F6;
+      color: #475569;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+    }
+
+    .card-footer {
+      border-top: 1px solid var(--surface-border);
+      padding-top: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .price-box {
+      display: flex;
+      flex-direction: column;
+    }
+    .price-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .price-amount {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: #B45309;
+      line-height: 1;
+    }
+
+    .card-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .btn-detail {
+      background: #FFFBEB;
+      border: 1px solid #FCD34D;
+      color: #92400E;
+      padding: 0.55rem 0.95rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .btn-detail:hover {
+      background: #FDE68A;
+      color: #78350F;
+    }
+    .btn-order-fast {
+      background: #D97706;
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 0.55rem 1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .btn-order-fast:hover {
+      background: #B45309;
+    }
+
+    /* Modal Styling */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-backdrop.open {
+      display: flex;
+      animation: modalFadeIn 0.25s ease-out forwards;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--surface-border);
+      position: relative;
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 38px;
+      height: 38px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--surface-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+      z-index: 10;
+      transition: background 0.2s;
+    }
+    .modal-close-btn:hover {
+      background: #F1F5F9;
+    }
+    .modal-image {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+    .modal-content {
+      padding: 2rem;
+    }
+    .modal-header-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .modal-title {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+    .modal-desc {
+      font-size: 1rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+    .modal-section-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #92400E;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .ingredients-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-bottom: 1.75rem;
+    }
+    .ingredients-list li {
+      font-size: 0.88rem;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #FAF8F5;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #F1E8DF;
+    }
+    .modal-details-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      background: #FFFDF9;
+      border: 1px solid #FDE68A;
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin-bottom: 1.75rem;
+      text-align: center;
+    }
+    .detail-cell small {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      display: block;
+    }
+    .detail-cell strong {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #92400E;
+    }
+    .modal-chef-box {
+      background: #F8FAFC;
+      border-left: 4px solid #D97706;
+      padding: 0.85rem 1.15rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      color: #475569;
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--surface-border);
+      padding-top: 1.5rem;
+    }
+
+    /* PWA Banner Callout */
+    .pwa-callout {
+      background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 50%, #FDE68A 100%);
+      border: 1.5px solid #FCD34D;
+      border-radius: var(--radius-lg);
+      padding: 3.5rem 2.5rem;
+      max-width: 1240px;
+      margin: 2rem auto 5rem;
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 2.5rem;
+      align-items: center;
+      box-shadow: var(--shadow-card);
+    }
+    .callout-title {
+      font-size: 2.3rem;
+      font-weight: 900;
+      color: #78350F;
+      margin-bottom: 0.85rem;
+      line-height: 1.2;
+    }
+    .callout-desc {
+      font-size: 1.05rem;
+      color: #92400E;
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+    .callout-features {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .c-feat {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #78350F;
+    }
+
+    /* Testimonials */
+    .testimonials-section {
+      background: #FFFFFF;
+      border-top: 1px solid var(--surface-border);
+      border-bottom: 1px solid var(--surface-border);
+      padding: 4.5rem 1.5rem;
+    }
+    .testimonials-grid {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .testimonial-card {
+      background: var(--bg-canvas);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      padding: 1.85rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .t-stars {
+      color: #D97706;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .t-comment {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+    .t-author {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .t-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #FCD34D;
+    }
+    .t-name {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .t-role {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer.main-footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--surface-border);
+      padding: 4rem 1.5rem 2rem;
+    }
+    .footer-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+      line-height: 1.6;
+      max-width: 340px;
+    }
+    .footer-col h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col li {
+      margin-bottom: 0.75rem;
+    }
+    .footer-col a {
+      text-decoration: none;
+      color: var(--text-sub);
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover {
+      color: var(--primary);
+    }
+    .footer-bottom {
+      max-width: 1240px;
+      margin: 0 auto;
+      border-top: 1px solid var(--surface-border);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       font-size: 0.85rem;
       color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-description {
+        margin: 0 auto 2.25rem;
+      }
+      .hero-ctas {
+        justify-content: center;
+      }
+      .hero-stats {
+        justify-content: center;
+      }
+      .pwa-callout {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .callout-features {
+        justify-content: center;
+      }
+      .pillars-grid {
+        grid-template-columns: 1fr;
+      }
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      .burgers-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+      .ingredients-list {
+        grid-template-columns: 1fr;
+      }
+      .hero-stats {
+        grid-template-columns: 1fr 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="badge">🚀 Scaffold Base &bull; MasterClass CI/CD</div>
-  <h1>Bienvenidos a NextCollege</h1>
-  <p>
-    Plataforma base lista para desarrollo acelerado con Inteligencia Artificial y Entrega Continua en Dokploy.
-  </p>
 
-  <div class="nav-cards">
-    <a href="/app" class="card">
-      <span style="font-size: 1.5rem;">📱</span>
-      <div style="text-align: left;">
-        <div>Ver PWA Mobile</div>
-        <small style="color: var(--text-muted); font-size: 0.75rem;">/app</small>
+  <!-- Top Announcement Promo Bar -->
+  <aside class="promo-bar" aria-label="Aviso promocional">
+    <span class="promo-badge">Nuevo Lanzamiento</span>
+    <span>¡Envío 100% GRATIS en tu primer pedido desde la App Móvil usando el cupón <strong>RAPID50</strong>!</span>
+  </aside>
+
+  <!-- Sticky Main Navigation -->
+  <header class="main-header">
+    <div class="header-container">
+      <a href="/" class="brand-logo" aria-label="Hamburger Rapid Inicio">
+        <div class="brand-icon">🍔</div>
+        <div class="brand-text">
+          <h1>HAMBURGER RAPID</h1>
+          <span>Gourmet &bull; Craft &bull; Express</span>
+        </div>
+      </a>
+
+      <nav aria-label="Navegación principal">
+        <ul class="nav-links">
+          <li><a href="#catalogo">Catálogo Destacado</a></li>
+          <li><a href="#secretos">Nuestra Calidad</a></li>
+          <li><a href="#experiencia">App Móvil</a></li>
+          <li><a href="#testimonios">Reseñas</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="/admin" class="btn-admin" title="Panel Administrativo de Control">
+          <span>⚙️</span>
+          <span>Panel Admin</span>
+        </a>
+        <a href="/app" class="btn-pwa" title="Abrir PWA Mobile para ordenar">
+          <span>📱</span>
+          <span>PWA Móvil</span>
+        </a>
       </div>
-    </a>
-    <a href="/admin" class="card">
-      <span style="font-size: 1.5rem;">⚙️</span>
-      <div style="text-align: left;">
-        <div>Panel Administrativo</div>
-        <small style="color: var(--text-muted); font-size: 0.75rem;">/admin</small>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-pill">
+          <span>✨</span> Primera Edición Comercial &bull; 10 Variantes de Autor
+        </div>
+        <h1 class="hero-title">
+          Sabor Gourmet Legendario a <span class="highlight">Velocidad Relámpago</span>
+        </h1>
+        <p class="hero-description">
+          Forjamos cada hamburguesa al momento con 100% carne Angus certificada, sellada a fuego vivo de roble, queso fundido de autor y pan brioche horneado cada mañana. Descubre nuestras variantes especiales o pide en minutos desde tu smartphone.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="#catalogo" class="cta-primary">
+            <span>🔥</span>
+            <span>Ver Catálogo Destacado (10)</span>
+          </a>
+          <a href="/app" class="cta-secondary">
+            <span>📱</span>
+            <span>Pedir en PWA Mobile</span>
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          {HIGHLIGHT_STATS.map((stat) => (
+            <div class="stat-item">
+              <div class="stat-number">{stat.value}</div>
+              <div class="stat-label">{stat.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
-    </a>
-    <a href="/api/health" class="card">
-      <span style="font-size: 1.5rem;">🩺</span>
-      <div style="text-align: left;">
-        <div>Health Check API</div>
-        <small style="color: var(--text-muted); font-size: 0.75rem;">/api/health</small>
+
+      <div class="hero-media">
+        <div class="hero-card-featured">
+          <div class="hero-floating-badge">
+            <span>👑</span>
+            <span>Estrella de la Casa: Nivel 5</span>
+          </div>
+          <img 
+            src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop&q=80" 
+            alt="Rey de las Burgers - Hamburguesa Insignia" 
+            loading="eager"
+          />
+          <div class="hero-card-footer">
+            <div>
+              <div class="hero-card-title">Rey de las Burgers</div>
+              <small style="color: #64748B; font-weight:600;">Doble Angus 360g &bull; Cheddar 12M &bull; Bourbon</small>
+            </div>
+            <div class="hero-card-price">$14.99</div>
+          </div>
+        </div>
       </div>
-    </a>
+    </div>
+  </section>
+
+  <!-- 3 Pillars Section -->
+  <section class="pillars-section" id="secretos">
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-icon">🥩</div>
+        <h3>Carne 100% Angus & Wagyu</h3>
+        <p>Picada diariamente sin aditivos ni conservantes. Cortes selectos con 20% de grasa infiltrada para una jugosidad incomparable a la brasa.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">🥖</div>
+        <h3>Pan Brioche Fermentado 24h</h3>
+        <p>Elaborado artesanalmente con mantequilla de campo y masa madre natural. Tostado al minuto con mantequilla clarificada.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">⚡</div>
+        <h3>Entrega Rápida con Control Térmico</h3>
+        <p>Nuestra cocina ultrarrápida despacha en menos de 8 minutos. Empaque térmico biodegradable que preserva el calor y la textura.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Catalog Section -->
+  <section class="catalog-section" id="catalogo">
+    <div class="section-header">
+      <div class="section-pill">Menú Oficial 2026</div>
+      <h2 class="section-title">Nuestras 10 Variantes Destacadas</h2>
+      <p class="section-subtitle">
+        Desde nuestras leyendas clásicas hasta las creaciones especiales más codiciadas. Todas con su nivel de especialidad certificado por nuestro Master Chef.
+      </p>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="filter-tabs">
+      <button class="tab-btn active" data-filter="all">Todas las Variantes (10)</button>
+      <button class="tab-btn" data-filter="Especiales">Especiales de la Casa</button>
+      <button class="tab-btn" data-filter="Clásicas">Clásicas de Siempre</button>
+      <button class="tab-btn" data-filter="Pollo & Aves">Pollo & Aves</button>
+      <button class="tab-btn" data-filter="Veggies & Plant-Based">Veggies</button>
+    </div>
+
+    <!-- Burgers Grid -->
+    <div class="burgers-grid">
+      {BURGERS.map((burger) => (
+        <article class="burger-card" data-category={burger.category} id={`burger-${burger.id}`}>
+          <div class="card-image-wrap">
+            <span class="badge-specialty" style={burger.badgeStyle}>
+              {burger.badge}
+            </span>
+            <span class="card-prep-tag">
+              <span>⏱️</span> {burger.prepTime}
+            </span>
+            <img 
+              src={burger.image} 
+              alt={burger.name} 
+              loading="lazy" 
+            />
+          </div>
+
+          <div class="card-body">
+            <div class="card-meta">
+              <span class="card-category">{burger.category}</span>
+              <span class="card-rating">
+                <span>⭐</span> {burger.rating} <small style="color: #94A3B8;">({burger.reviews})</small>
+              </span>
+            </div>
+
+            <h3 class="card-title">{burger.name}</h3>
+            <span class="card-specialty-subtitle">{burger.specialtyLevel}</span>
+            <p class="card-desc">{burger.description}</p>
+
+            <div class="card-tags">
+              <span class="card-tag-pill">🔥 {burger.calories}</span>
+              <span class="card-tag-pill">⏱️ {burger.prepTime}</span>
+              <span class="card-tag-pill">🥩 Angus Cut</span>
+            </div>
+
+            <div class="card-footer">
+              <div class="price-box">
+                <span class="price-label">Precio Especial</span>
+                <span class="price-amount">${burger.price.toFixed(2)}</span>
+              </div>
+
+              <div class="card-buttons">
+                <button 
+                  class="btn-detail open-details-btn" 
+                  data-burger={JSON.stringify(burger)}
+                  type="button"
+                >
+                  <span>👁️</span> Ver Detalles
+                </button>
+                <a href={`/app`} class="btn-order-fast" title="Ordenar en la PWA">
+                  <span>🛒</span> Pedir
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- PWA Callout Banner -->
+  <section class="pwa-callout" id="experiencia">
+    <div class="callout-text">
+      <div style="font-size: 0.82rem; font-weight:800; text-transform:uppercase; letter-spacing:0.08em; color: #92400E; margin-bottom: 0.5rem;">
+        📱 Experiencia Móvil Optimizada
+      </div>
+      <h2 class="callout-title">Simula y Vive tu Pedido en la PWA de Hamburger Rapid</h2>
+      <p class="callout-desc">
+        Nuestra Progressive Web App te permite explorar el menú interactivo, aplicar cupones de descuento exclusivos, seguir la preparación de tu carne en la brasa y acumular puntos en el Club Rapid.
+      </p>
+
+      <div class="callout-features">
+        <div class="c-feat"><span>🍔</span> Menú con Carrito en Vivo</div>
+        <div class="c-feat"><span>🏷️</span> Cupones & Ofertas 2x1</div>
+        <div class="c-feat"><span>🛵</span> Trazabilidad de Entrega</div>
+        <div class="c-feat"><span>⭐</span> Puntos de Fidelidad</div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="/app" class="cta-primary" style="background:#B45309;">
+          <span>📲</span> Abrir App Móvil PWA (/app)
+        </a>
+        <a href="/admin" class="cta-secondary">
+          <span>⚙️</span> Abrir Panel Administrativo (/admin)
+        </a>
+      </div>
+    </div>
+
+    <div style="text-align: center;">
+      <div style="background: #FFFFFF; border: 2px solid #FCD34D; border-radius: 20px; padding: 2rem 1.5rem; display: inline-block; box-shadow: var(--shadow-hover); max-width: 280px;">
+        <div style="font-size: 3rem; margin-bottom: 0.5rem;">📲</div>
+        <div style="font-weight: 800; color: #78350F; font-size: 1.15rem; margin-bottom: 0.25rem;">Hamburger Rapid</div>
+        <div style="font-size: 0.78rem; color: #92400E; font-weight: 700; margin-bottom: 1rem;">INSTÁLALA EN TU DISPOSITIVO</div>
+        <div style="background: #FFFBEB; border: 1px dashed #F59E0B; padding: 0.75rem; border-radius: 10px; font-size: 0.82rem; color: #B45309; font-weight: 600;">
+          Pestañas Menú &bull; Ofertas &bull; Órdenes &bull; Perfil
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section" id="testimonios">
+    <div class="section-header">
+      <div class="section-pill">Opiniones Reales</div>
+      <h2 class="section-title">Lo que dicen los amantes de las Burgers</h2>
+      <p class="section-subtitle">Más de 50.000 clientes satisfechos en nuestros locales y a través de nuestra plataforma digital.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      {TESTIMONIALS.map((t) => (
+        <div class="testimonial-card">
+          <div>
+            <div class="t-stars">{"⭐".repeat(t.rating)}</div>
+            <p class="t-comment">"{t.comment}"</p>
+          </div>
+          <div class="t-author">
+            <img src={t.avatar} alt={t.author} class="t-avatar" />
+            <div>
+              <div class="t-name">{t.author}</div>
+              <div class="t-role">{t.role} &bull; Fan de {t.burger}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Details Modal Dialog -->
+  <div class="modal-backdrop" id="burgerModal" role="dialog" aria-modal="true" aria-labelledby="modalBurgerTitle">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="closeModalBtn" aria-label="Cerrar detalles">&times;</button>
+      <img id="modalImg" src="" alt="Hamburguesa Detalle" class="modal-image" />
+      
+      <div class="modal-content">
+        <div class="modal-header-meta">
+          <span id="modalBadge" class="badge-specialty" style="position: static; box-shadow: none;"></span>
+          <span id="modalRating" style="font-weight: 800; color: #D97706; font-size: 0.9rem;"></span>
+        </div>
+
+        <h2 id="modalBurgerTitle" class="modal-title"></h2>
+        <div id="modalSpecialty" style="color: #92400E; font-weight: 800; font-size: 0.95rem; margin-bottom: 0.85rem;"></div>
+        <p id="modalDesc" class="modal-desc"></p>
+
+        <div class="modal-section-title">
+          <span>🥩</span> Ingredientes de Primera Calidad
+        </div>
+        <ul id="modalIngredients" class="ingredients-list"></ul>
+
+        <div class="modal-details-grid">
+          <div class="detail-cell">
+            <small>Tiempo en Parrilla</small>
+            <strong id="modalPrep"></strong>
+          </div>
+          <div class="detail-cell">
+            <small>Energía Nutricional</small>
+            <strong id="modalCalories"></strong>
+          </div>
+          <div class="detail-cell">
+            <small>Maridaje Sugerido</small>
+            <strong id="modalPairing" style="font-size: 0.85rem;"></strong>
+          </div>
+        </div>
+
+        <div id="modalChefNotes" class="modal-chef-box"></div>
+
+        <div class="modal-actions">
+          <div>
+            <div style="font-size: 0.75rem; color: #64748B; font-weight:700; text-transform:uppercase;">Precio Comercial</div>
+            <div id="modalPrice" style="font-size: 1.85rem; font-weight: 900; color: #B45309;"></div>
+          </div>
+          <div style="display: flex; gap: 0.75rem;">
+            <button type="button" class="btn-detail" id="modalCloseAction">Cerrar</button>
+            <a href="/app" class="cta-primary" style="padding: 0.75rem 1.45rem; font-size: 0.95rem;">
+              <span>🛒</span> Pedir en App Móvil
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <footer>
-    NextCollege Scaffold &bull; Astro + React + Node.js + MySQL + Dokploy
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div>
+        <div class="brand-logo">
+          <div class="brand-icon">🍔</div>
+          <div class="brand-text">
+            <div style="font-size: 1.25rem; font-weight: 900; color: #92400E;">HAMBURGER RAPID</div>
+            <span style="font-size: 0.7rem; font-weight: 700; color: #B45309;">Sabor Gourmet a Velocidad Relámpago</span>
+          </div>
+        </div>
+        <p class="footer-desc">
+          La primera cadena fast-gourmet con arquitectura tecnológica híbrida y trazabilidad en tiempo real. 100% Angus fresco, nunca congelado.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Catálogo Rápido</h4>
+        <ul>
+          <li><a href="#catalogo">Rey de las Burgers (👑)</a></li>
+          <li><a href="#catalogo">Burger Real Clásica (⭐)</a></li>
+          <li><a href="#catalogo">Burger Real Doble (🔥)</a></li>
+          <li><a href="#catalogo">Burger Doble Especial (✨)</a></li>
+          <li><a href="#catalogo">Truffle Mushroom King (🍄)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Ecosistema Digital</h4>
+        <ul>
+          <li><a href="/app">📱 App Móvil PWA (Clientes)</a></li>
+          <li><a href="/admin">⚙️ Panel Administrativo</a></li>
+          <li><a href="/api/health">🩺 Health Check API</a></li>
+          <li><a href="/api/products">📦 API Catálogo JSON</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Horarios & Contacto</h4>
+        <ul>
+          <li><span style="color:#64748B;">Lunes a Domingo:</span> 11:30 - 23:30</li>
+          <li><span style="color:#64748B;">WhatsApp Express:</span> +56 9 8844 2200</li>
+          <li><span style="color:#64748B;">Sucursal Central:</span> Av. Gastronomía 1040</li>
+          <li><span style="color:#10B981; font-weight:700;">🟢 Cocinas Operativas</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; {new Date().getFullYear()} Hamburger Rapid SpA. Todos los derechos reservados. Paleta Clara Premium.</div>
+      <div style="display: flex; gap: 1.25rem;">
+        <a href="/app" style="color: #92400E; font-weight: 700; text-decoration: none;">📱 Ir a PWA Móvil</a>
+        <span>&bull;</span>
+        <a href="/admin" style="color: #92400E; font-weight: 700; text-decoration: none;">⚙️ Panel Admin</a>
+      </div>
+    </div>
   </footer>
+
+  <!-- Interactive JavaScript for Category Filtering & Modal Dialog -->
+  <script is:inline>
+    // Filtering Logic
+    const filterButtons = document.querySelectorAll('.tab-btn');
+    const burgerCards = document.querySelectorAll('.burger-card');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+        burgerCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Modal Details Logic
+    const modal = document.getElementById('burgerModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalCloseAction = document.getElementById('modalCloseAction');
+    const detailButtons = document.querySelectorAll('.open-details-btn');
+
+    function openModalWithData(burger) {
+      document.getElementById('modalImg').src = burger.image;
+      document.getElementById('modalImg').alt = burger.name;
+      document.getElementById('modalBurgerTitle').textContent = burger.name;
+      document.getElementById('modalSpecialty').textContent = burger.specialtyLevel;
+      document.getElementById('modalDesc').textContent = burger.description;
+      document.getElementById('modalPrice').textContent = `$${burger.price.toFixed(2)}`;
+      document.getElementById('modalRating').textContent = `⭐ ${burger.rating} (${burger.reviews} reseñas)`;
+      document.getElementById('modalPrep').textContent = burger.prepTime;
+      document.getElementById('modalCalories').textContent = burger.calories;
+      document.getElementById('modalPairing').textContent = burger.pairing || 'Papas rústicas y bebida fría';
+      document.getElementById('modalChefNotes').textContent = burger.chefNotes ? `Nota del Chef: "${burger.chefNotes}"` : '';
+
+      const badgeElem = document.getElementById('modalBadge');
+      badgeElem.textContent = burger.badge;
+      if (burger.badgeStyle) {
+        badgeElem.setAttribute('style', `position: static; box-shadow: none; ${burger.badgeStyle}`);
+      }
+
+      const ingrList = document.getElementById('modalIngredients');
+      ingrList.innerHTML = '';
+      if (burger.ingredients && burger.ingredients.length) {
+        burger.ingredients.forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = `<span>✓</span> ${item}`;
+          ingrList.appendChild(li);
+        });
+      }
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = 'auto';
+    }
+
+    detailButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        try {
+          const data = JSON.parse(btn.getAttribute('data-burger'));
+          openModalWithData(data);
+        } catch (e) {
+          console.error('Error parsing burger data:', e);
+        }
+      });
+    });
+
+    closeModalBtn.addEventListener('click', closeModal);
+    modalCloseAction.addEventListener('click', closeModal);
+
+    // Close on backdrop click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) {
+        closeModal();
+      }
+    });
+  </script>
+
 </body>
 </html>

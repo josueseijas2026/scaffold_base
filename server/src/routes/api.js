@@ -13,12 +13,13 @@ router.get('/health', (req, res) => {
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     version: '1.0.0',
-    platform: 'Dokploy CI/CD Live Demo',
+    platform: 'Hamburger Rapid CI/CD Platform',
+    brand: 'Hamburger Rapid',
     database: dbStatus
   });
 });
 
-// List products
+// List burgers / products
 router.get('/products', async (req, res) => {
   try {
     const products = await db.getProducts();
@@ -32,26 +33,40 @@ router.get('/products', async (req, res) => {
   }
 });
 
-// Add new product
+// Add new burger
 router.post('/products', async (req, res) => {
   try {
-    const { name, category, price, stock, image, description } = req.body;
+    const { name, category, price, stock, image, description, specialtyLevel } = req.body;
     if (!name || price === undefined) {
       return res.status(400).json({ success: false, error: 'Nombre y precio son requeridos.' });
     }
-    const product = await db.addProduct({ name, category, price, stock, image, description });
-    res.status(201).json({ success: true, message: 'Producto creado exitosamente', data: product });
+    const product = await db.addProduct({ name, category, price, stock, image, description, specialtyLevel });
+    res.status(201).json({ success: true, message: 'Hamburguesa agregada exitosamente', data: product });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
-// Delete product
+// Delete burger
 router.delete('/products/:id', async (req, res) => {
   try {
     const { id } = req.params;
     await db.deleteProduct(id);
-    res.json({ success: true, message: `Producto ${id} eliminado.` });
+    res.json({ success: true, message: `Hamburguesa ${id} eliminada.` });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Consumer & customer analytics endpoint
+router.get('/consumers', (req, res) => {
+  try {
+    const metrics = db.getConsumerMetrics();
+    res.json({
+      success: true,
+      timestamp: new Date().toISOString(),
+      data: metrics
+    });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
@@ -61,7 +76,7 @@ router.delete('/products/:id', async (req, res) => {
 router.post('/reset', async (req, res) => {
   try {
     await db.resetProducts();
-    res.json({ success: true, message: 'Datos demo restablecidos.' });
+    res.json({ success: true, message: 'Catálogo de Hamburger Rapid restablecido.' });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
@@ -81,6 +96,7 @@ function checkTcpPort(host, port = 3306, timeout = 300) {
       resolve({ host, port, open: false, reason: 'timeout' });
     });
     socket.once('error', (err) => {
+      socket.destroy();
       resolve({ host, port, open: false, reason: err.code || err.message });
     });
     socket.connect(port, host);
