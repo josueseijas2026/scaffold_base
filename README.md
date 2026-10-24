@@ -6,7 +6,37 @@ Plataforma comercial full-stack de comida rápida y fast-gourmet construida con 
 - **Panel Administrativo & Dashboard de Control** en **React 18** (`apps/admin`)
 - **Backend API & Servidor de Distribución** en **Node.js + Express + MySQL / In-Memory Cache** (`server`)
 
-Diseñada íntegramente bajo un estándar de **Paleta Clara Premium** (tonos marfil `#FAF8F5`, blanco puro `#FFFFFF`, acentos ámbar gourmet `#D97706`, oro bruñido `#B45309`, bordes suaves y microinteracciones de alta gama).
+Diseñada íntegramente bajo un estándar de **Paleta Bold Fast-Food & Gourmet**:
+- **Landing E-commerce**: Rediseñada adoptando el estilo visual, paleta de colores y componentes de la imagen de referencia ubicada en:
+  `assets-references\images\Burger Restaurant Website Design _ Bold Fast Food Landing Page UI Inspiration.jpg`
+- **PWA Móvil & Admin Dashboard**: Paleta clara premium coordinada (tonos marfil `#FAF8F5`, acentos ámbar gourmet `#D97706`, bordes suaves y microinteracciones de alta gama).
+
+---
+
+## 🎨 Referencia Visual & Identidad de Marca (Landing E-commerce)
+
+El portal Landing E-commerce (`apps/ecommerce`) implementa la identidad visual inspirada en:
+📁 **`assets-references\images\Burger Restaurant Website Design _ Bold Fast Food Landing Page UI Inspiration.jpg`**
+
+### Elementos de Diseño Implementados:
+1. **Paleta de Colores Bold Fast-Food**:
+   - **Fondos Oscuros de Alto Impacto**: Deep Black `#0C0C0E`, Charcoal `#141417` y superficie `#18181D` en Header, Hero, Barra de Atributos, Banner Promocional y Footer.
+   - **Acentos Dorado Ambarino**: Oro vibrante `#FFA800`, hover `#E09400` y resplandor sutil para botones principales, estrellas y badges.
+   - **Catálogo Contrastado "CUSTOMER FAVORITES"**: Fondo claro limpio `#F5F5F7` con tarjetas blancas puras `#FFFFFF`, tipografía oscura `#111827`, ingredientes en gris `#6B7280` y precio destacado en oro.
+2. **Tipografías Google Fonts**:
+   - `Bebas Neue`: Titulares masivos y condensados en mayúsculas (*"BURGERS DONE RIGHT"*, *"CUSTOMER FAVORITES"*, *"MEAL!"*, *"BURGERS BUILT ON PASSION"*).
+   - `Caveat`: Acentos manuscritos y artesanales (*"Made Fresh. Made to Crave."*, *"Our Menu"*, *"Make it a"*, *"About Us"*, *"Real Good Burgers"*).
+   - `Plus Jakarta Sans`: Cuerpo de lectura, fichas técnicas, precios e información nutricional.
+3. **Componentes y Bloques Visuales**:
+   - **Header & Navbar**: Logo Burger Factory ("• EST. 2016 •"), enlaces de navegación en mayúsculas y botón CTA "ORDER ONLINE".
+   - **Hero Section**: Titular imponente a dos tonos, acento script con destellos (`\ | /`), calificación 4.8 con 5 estrellas doradas, botones de acción rápida y badge circular estampado *"100% FRESH BEEF • NEVER FROZEN"*.
+   - **Barra de 4 Atributos de Calidad**: *PREMIUM QUALITY*, *HAND-CUT FRIES*, *HAND-SPUN SHAKES* y *MADE FRESH DAILY* con iconografía lineal dorada.
+   - **Catálogo "CUSTOMER FAVORITES"**: Tarjetas con bordes redondeados (16px), sombra suave, ingredientes detallados, precio dorado y botón circular negro (+) con enlace directo a la PWA Móvil.
+   - **Banner Promocional Split**:
+     - *Columna Izquierda*: Fondo dark con oferta *"Make it a MEAL! Add fries & a drink for just $3.99"*.
+     - *Columna Derecha*: Fondo dorado con *"About Us / BURGERS BUILT ON PASSION"*, botón *"OUR STORY >"* y sello estampado *"REAL INGREDIENTS • REAL GOOD Burgers"*.
+   - **Footer 4 Columnas**: Marca, Quick Links, Horarios de atención con semáforo verde en vivo, redes sociales y tarjeta *"ORDER AHEAD & SKIP THE LINE! ORDER ONLINE >"*.
+   - **Modal Interactivo de Especialidades**: Desglose dinámico de ingredientes con checkmarks, tiempos de parrilla, maridaje sugerido y nota de cata del chef.
 
 ---
 
